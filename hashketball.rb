@@ -1,4 +1,5 @@
-# Write your code below game_hash
+require "pry"
+
 def game_hash
   {
     home: {
@@ -126,4 +127,80 @@ def game_hash
   }
 end
 
-# Write code here
+def num_points_scored(name) #players names
+  game_hash.each do |team, team_stats| #put iterate game_hash and add to team and team_stats
+  team_stats[:players].each do |player| #take players from team_stats and add to player
+    if player[:player_name] == name #if player_name array/hash is true to name...
+      return player[:points] #return the players points
+      end
+    end
+  end
+end
+
+def shoe_size(name) #players name
+  game_hash.each do |team, team_stats| #iterate over game_hash and add to team and team_stats
+    team_stats[:players].each do |player| #pull players from team_stats and add to player
+      if player[:player_name] == name #if player names is equal to name...
+        return player[:shoe] #return palyers shoe size
+      end
+    end
+  end
+end
+
+def team_colors(team_name_input) #team names
+  if team_name_input == "Brooklyn Nets" #if team name is true to brooklyn nets...
+    return game_hash[:home][:colors] #return game hash coordinating to home and the colors
+  else return game_hash[:away][:colors] # or return game hash coordinating to away and the colors
+  end
+end
+
+def team_names
+  game_hash.map do |team, team_stats| #map game hash for new returned array and add to variables
+    team_stats[:team_name] #return team_names from team_stats
+  end
+end
+
+def player_numbers(team_name_input) #team_names
+  array = [] #create empty array to be pushed to
+  game_hash.each do |team, team_stats| #iterate over game hash and add to team and team_stats
+    if team_stats[:team_name] == team_name_input #if team_name key is true to team names...
+      team_stats.each do |key, value| #iterate over team_stats and add to key and value
+        if key == :players #if key is true to players...
+          value.each do |player| #iterate value and add to player
+            array.push(player[:number]) #push player number empty array variable
+          end
+        end
+      end
+    end
+  end
+  return array #return the new array
+end
+
+def player_stats(name) #players names
+  game_hash.each do |team, team_stats| #iterate over game hash and add to team and team stats
+    team_stats.each do |key, value| #iterate over team stats and add to key and value
+      if key == :players #if key is true to :players...
+        value.each do |player| #iterate over value.each and add to player
+          if name == player[:player_name] #if players names is true to :player_name...
+            player.delete([:player_name]) #call player with delete to return copy of player name
+            return player  #return player with stats
+          end
+        end
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+  shoe_size = 0 #shoe variable set to 0
+  rebounds = 0 #rebound variable set to 0
+  game_hash.each do |team, team_stats| #iterate over game has and add to team and team stats
+    team_stats[:players].each do |player| #iterate team_stats with :players and add to player
+      if player[:shoe] > shoe_size #if player shoe size is greater than shoe size variable...
+        shoe_size = player[:shoe] #let shoe size equal players shoe size...
+        rebounds = player[:rebounds] #and let rebounds equal player rebounds
+      end
+    end
+  end
+  return rebounds #return rebounds to get data
+end
