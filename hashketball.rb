@@ -1,3 +1,4 @@
+require 'pry'
 # Write your code below game_hash
 def game_hash
   {
@@ -126,4 +127,90 @@ def game_hash
   }
 end
 
-# Write code here
+def num_points_scored(player_name)
+  game_hash.each do |team, team_details|
+    team_details[:players].each do |player|
+      if player[:player_name] == player_name
+        return player[:points]
+      end
+    end
+  end
+end
+
+def shoe_size(player_name)
+  game_hash.each do |team, team_details|
+    team_details[:players].each do |player|
+      if player[:player_name] == player_name
+        return player[:shoe]
+      end
+    end
+  end
+end
+
+def team_colors(team_name)
+  game_hash.each do |team, team_details|
+    if team_details[:team_name] == team_name
+      return team_details[:colors]
+    end
+  end
+end
+
+def team_names
+  teams = Array.new
+  game_hash.each do |team, team_details|
+    teams << team_details[:team_name]
+  end
+  teams
+end
+
+def player_numbers(team_name)
+  numbers = Array.new
+  game_hash.each do |team, team_details|
+    if team_details[:team_name] == team_name
+      team_details[:players].each do |player|
+        numbers << player[:number]
+      end
+    end
+  end
+  numbers
+end
+
+def player_stats(player_name)
+  game_hash.each do |team, team_details|
+    team_details[:players].each do |player|
+      if player[:player_name] == player_name
+        return player
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+  
+  def largest_shoe_size
+    largest_size = 0
+    largest_player = ""
+    game_hash.each do |team, team_details|
+      team_details[:players].each do |player|
+        if player[:shoe] > largest_size
+          largest_size = player[:shoe]
+          largest_player = player[:player_name]
+        end
+      end
+    end
+    return largest_player
+  end
+  
+  def number_of_rebounds(player_name)
+    game_hash.each do |team, team_details|
+      team_details[:players].each do |player|
+        if player[:player_name] == player_name
+          return player[:rebounds]
+        end
+      end
+    end
+  end
+  
+  number_of_rebounds(largest_shoe_size)
+  
+end
